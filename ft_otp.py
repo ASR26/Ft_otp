@@ -130,3 +130,55 @@ def generar_OTP(semilla)
 
     # Devolver el código como 'str'.
     return "{:06d}".format(codigo)
+
+
+if __name__ == "__main__":
+    # Leer los argumetnos de la línea de comandos.
+    fichero_clave_compartida, fichero_cifrado, qr = leer_argumentos()
+
+    # Si se solicitó generar una clave (-g)
+    if fichero_clave_compartida:
+        if validar_fichero(fichero_clave_compartida): # No se usa AND con la de arriba para que detecte error con '-g'
+            # Almacenar la clave en un fichero '.key'.
+            with open("ft_otp.key", "w") as f:
+                f.write(semilla)
+
+            print("Semilla almacenada en 'ft_otp.key'.")
+
+            # Cifrar el fichero con la semilla
+            AES().cifrar_fichero("ft_otp.key")
+
+            print("Fichero 'ft_top.key' cifrado con contraseña.")
+
+        else:
+            # Los errores del fichero de la semilla se tratan en 'validar fichero()'
+            exit(1)
+            
+    # Si se solicitó generar un código temporal (-k) o mostrar el QR de la clave (-qr).
+    elif fichero_cifrado or qr:
+        # Usar el fichero recibido por una de las dos opciones.
+        fichero = fichero_cifrado if fichero_cifrado else qr # el fichero usado es el mismo, pero no se recibe igual
+
+        # Verificar que el fichero cifrado existe y es legible.
+        if not (os.path.isfile(fichero) or os.access(fichero, os.R_OK)):
+            print("Error: el fichero no existe o no es legible.")
+            exit(1)
+        else:
+            # Extraer la semilla del fichero.
+            semilla = AES().leer_fichero(fichero)
+
+            # Si se solicitó generar una contraseña (-k).
+            if fichero_cifrado:
+                # Generar y mostrar el código OTP.
+                print("Código generado:", generar_OTP(semilla))
+
+            # Si se solicitó generar un QR (-qr).
+            else:
+                # Generar y mostrar el QR.
+                print("QR con la clave secreta:")
+                qrcode_terminal.draw(smeilla)
+
+    else:
+        print("No se ha especificado ninguna opción")
+        exit(1)
+

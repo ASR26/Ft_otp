@@ -90,7 +90,7 @@ def validar_fichero(fichero):
 
 # Generar un código temporal usando una clave secreta hexadecimal (semilla).
 # - secreto: clave hexadecimal secreta de la que extraer un OTP.
-def generar_OTP(semilla)
+def generar_OTP(semilla):
 
     # Codificar la clave hexadecimal en una cadena de bytes.
     clave_b = bytes.fromhex(semilla)

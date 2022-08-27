@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import qrcode_terminal
 import argparse
 import hashlib
@@ -52,7 +54,7 @@ def iniciar_analizador():
             type=str)
 
     # Obtener los argumentos de la línea de comandos.
-    return analizar.parse_args()
+    return analizador.parse_args()
 
 
 #Verifica que un fichero contiene una clave que cumple los requisitos mínimos.
@@ -67,10 +69,10 @@ def validar_fichero(fichero):
 
     #Extraer clave del interior del fichero
     with open(fichero, "r") as f:
-        clave = f.read()
+        semilla = f.read()
 
     # Verifica que la clave es hexadecimal y mide al menos 64 caracteres.
-    if not re.match(r'^[0-0a-fA-F]{64,}$', semilla):
+    if not re.match(r'^[0-9a-fA-F]{64,}$', semilla):
         print("La clave no es hexadecimal o tiene menos de 64 caracteres.")
 
         """
@@ -93,22 +95,22 @@ def validar_fichero(fichero):
 def generar_OTP(semilla):
 
     # Codificar la clave hexadecimal en una cadena de bytes.
-    clave_b = bytes.fromhex(semilla)
+    semilla_b = bytes.fromhex(semilla)
 
     # Obtener y truncar el tiempo actual a una "ventana" de 30 segundos.
     tiempo = int(time.time() // 30)
 
     # Codificar el tiempo en una cadena de bytes.
-    timepo_b = struct.pack("<Q", tiempo)
+    tiempo_b = struct.pack(">Q", tiempo)
 
     # Generar el hash de la clave secreta (como cadena de bytes).
-    hash_b = hmac.digest(clave_b, tiempo_b, hashlib.sha1)
+    hash_b = hmac.digest(semilla_b, tiempo_b, hashlib.sha1)
 
     # Obtener el offset.
     offset = hash_b[19] & 15 # Operacion AND entre '0b????' y '0b1111'.
 
     # Generar el código
-    codigo = struct.unpac('<I', hash_b[offset:offset + 4])[0] # '[0]' porque 'struct.unpack' devuelve una lista.
+    codigo = struct.unpack('>I', hash_b[offset:offset + 4])[0] # '[0]' porque 'struct.unpack' devuelve una lista.
     codigo = (codigo & 0x7FFFFFFF) % 1000000
 
     """
@@ -176,7 +178,7 @@ if __name__ == "__main__":
             else:
                 # Generar y mostrar el QR.
                 print("QR con la clave secreta:")
-                qrcode_terminal.draw(smeilla)
+                qrcode_terminal.draw(bytes.fromhex(semilla).decode('utf-8'))
 
     else:
         print("No se ha especificado ninguna opción")

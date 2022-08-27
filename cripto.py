@@ -79,7 +79,7 @@ class Cripto:
 
 
     # Descifra un fichero usando AES en modo CBC con un vector de inicialización IV.
-    def cifrar_fichero(self, fichero):
+    def descifrar_fichero(self, fichero):
         # Leer el contenido del fichero (bytes).
         with open(fichero, "rb") as f:
             contenido = f.read()

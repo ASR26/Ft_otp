@@ -178,7 +178,9 @@ if __name__ == "__main__":
             else:
                 # Generar y mostrar el QR.
                 print("QR con la clave secreta:")
-                qrcode_terminal.draw(bytes.fromhex(semilla).decode('utf-8'))
+                qrcode_terminal.draw(semilla)
+                # qrcode_terminal.draw(bytes.fromhex(semilla).decode('utf-8'))
+                # La línea comentada justo arriba mostraría la semilla desencriptada
 
     else:
         print("No se ha especificado ninguna opción")

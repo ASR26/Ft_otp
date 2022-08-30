@@ -28,4 +28,8 @@ Ahora queremos generar la contraseña temporal, para esto usaremos la flag `-k`:
   ```
 Se nos pedirá la contraseña que dimos a la hora de encriptar el archivo y si la introducimos correctamente se nos devolverá una contraseña temporal de 6 dígitos que durará 30 segundos.
 
-Otra forma de
+Otra forma de conseguir acceso a nuestra contraseña sería usando la flag '-qr':
+  ```
+  ./ft_otp -qr ft_otp.key
+  ```
+Este comando nos volverá a pedir la contraseña que usamos para encriptar el archivo y si la introducimos correctamente nos imprimirá un código qr que contiene la contraseña hexadecimal.

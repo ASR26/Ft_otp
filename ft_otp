@@ -135,7 +135,7 @@ def generar_OTP(semilla):
 
 
 if __name__ == "__main__":
-    # Leer los argumetnos de la línea de comandos.
+    # Leer los argumentos de la línea de comandos.
     fichero_clave_compartida, fichero_cifrado, qr = leer_argumentos()
 
     # Si se solicitó generar una clave (-g)
@@ -150,7 +150,7 @@ if __name__ == "__main__":
             # Cifrar el fichero con la semilla
             AES().cifrar_fichero("ft_otp.key")
 
-            print("Fichero 'ft_top.key' cifrado con contraseña.")
+            print("Fichero 'ft_otp.key' cifrado con contraseña.")
 
         else:
             # Los errores del fichero de la semilla se tratan en 'validar fichero()'

@@ -33,3 +33,4 @@ Otra forma de conseguir acceso a nuestra contraseña sería usando la flag '-qr'
   ./ft_otp -qr ft_otp.key
   ```
 Este comando nos volverá a pedir la contraseña que usamos para encriptar el archivo y si la introducimos correctamente nos imprimirá un código qr que contiene la contraseña hexadecimal.
+Este proyecto está basado en el proyecto ft_otp del repositorio 42malaga_bootcamp-ciberseguridad de <a href="https://github.com/15Galan/">15Galan</a>

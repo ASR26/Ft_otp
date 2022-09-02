@@ -1,5 +1,5 @@
 # Descripción
-Este proyecto consiste en hacer un programa que genere una contraseña temporal para leer los datos de un archivo que contiene una contraseña cifrada, similar al funcionamiento del <a href=""https://www.xataka.com/basics/google-authenticator-que-como-funciona-como-configurarlo">Google Authenticator</a>.
+Este proyecto consiste en hacer un programa que genere una contraseña temporal para leer los datos de un archivo que contiene una contraseña cifrada, similar al funcionamiento del <a href="https://www.xataka.com/basics/google-authenticator-que-como-funciona-como-configurarlo">Google Authenticator</a>.
 
 ## Funcionamiento
 Para usar el programa primero tendremos que crear una clave, que sera nuestra "contraseña", y la guardaremos en un archivo:
